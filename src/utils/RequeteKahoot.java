@@ -4,7 +4,6 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class RequeteKahoot {
@@ -220,6 +219,33 @@ public class RequeteKahoot {
         List<String> args = new ArrayList<>();
         args.add(login);
         ResultSet result = executeQuery("SELECT * FROM `poo2020`.`joueur` WHERE `login`=?;", args);
+
+        Joueur joueur = null;
+
+        try {
+            if(result != null) {
+                result.next();
+
+                joueur = new Joueur(result.getInt("idJOUEUR"), result.getString("login"), result.getString("mdp"));
+            }
+        } catch (SQLException throwables) {
+            System.out.println("[SQL] La requête SQL n'a pas fonctionnée");
+        } finally {
+            try {
+                if(result != null)
+                    result.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        return joueur;
+    }
+
+    public Joueur getJoueur(String name, String mdp) {
+        List<String> args = new ArrayList<>();
+        args.add(name);
+        args.add(mdp);
+        ResultSet result = executeQuery("SELECT * FROM `poo2020`.`joueur` WHERE `login`=? AND `mdp`=?;", args);
 
         Joueur joueur = null;
 
