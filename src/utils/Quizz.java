@@ -3,11 +3,11 @@ package utils;
 import java.util.*;
 
 public class Quizz {
-    public static void lancer() {
+    public static void lancer(String mdp) {
         // Création Scanner
         Scanner in = new Scanner(System.in);
 
-        RequeteKahoot req = new RequeteKahoot();
+        RequeteKahoot req = new RequeteKahoot(mdp);
 
         List<Question> questionList = null;
         int score = 0;
@@ -55,8 +55,8 @@ public class Quizz {
         System.out.println("Score : " + score + ", Score maximal : " + user_max_size);
     }
 
-    public static boolean sendToDb() {
-        RequeteKahoot req = new RequeteKahoot();
+    public static boolean sendToDb(String mdp) {
+        RequeteKahoot req = new RequeteKahoot(mdp);
         DatabaseSender sender = new DatabaseSender(req);
 
         boolean cat = sender.sendCategories();

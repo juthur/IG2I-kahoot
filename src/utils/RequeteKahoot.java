@@ -12,7 +12,7 @@ public class RequeteKahoot {
     private Connection con;
     private String url = "jdbc:mysql://localhost:3306/poo2020";
     private String user = "root";
-    private String mdp = "";
+    private String mdp;
     //endregion
 
     //region Getters & Setters
@@ -49,7 +49,9 @@ public class RequeteKahoot {
     }
     //endregion
 
-    public RequeteKahoot() {
+    public RequeteKahoot(String mdp) {
+        this.mdp = mdp;
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, mdp);
